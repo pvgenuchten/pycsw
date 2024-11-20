@@ -1538,7 +1538,7 @@ class Csw2(object):
                         util.nspath_eval(i, self.parent.context.namespaces)).text = val
 
             if self.parent.kvp['elementsetname'] == 'full':  # add full elements
-                for i in ['dc:date', 'dc:creator', \
+                for i in ['dc:date', 'dct:created', 'dct:issued', 'dc:creator', \
                 'dc:publisher', 'dc:contributor', 'dc:source', \
                 'dc:language', 'dc:rights', 'dct:alternative']:
                     val = util.getqattr(recobj, queryables[i]['dbcol'])
@@ -1549,6 +1549,13 @@ class Csw2(object):
                 if val:
                     etree.SubElement(record,
                     util.nspath_eval('dct:spatial', self.parent.context.namespaces), scheme='http://www.opengis.net/def/crs').text = val
+
+            # temporal extent
+            begin = util.getqattr(recobj, self.parent.context.md_core_model['mappings']['pycsw:time_begin'])
+            end = util.getqattr(recobj, self.parent.context.md_core_model['mappings']['pycsw:time_end'])
+            if begin or end:
+                etree.SubElement(record,
+                    util.nspath_eval('dct:temporal', self.parent.context.namespaces)).text = f"{begin or ''}/{end or ''}"
 
             # always write out ows:BoundingBox
             bboxel = write_boundingbox(getattr(recobj,

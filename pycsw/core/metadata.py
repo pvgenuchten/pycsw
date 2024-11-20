@@ -1675,8 +1675,9 @@ def _parse_dc(context, repos, exml):
 
     _set(context, recobj, 'pycsw:ParentIdentifier', md.ispartof)
     _set(context, recobj, 'pycsw:Relation', md.relation)
-    _set(context, recobj, 'pycsw:TempExtent_begin', md.temporal)
-    _set(context, recobj, 'pycsw:TempExtent_end', md.temporal)
+    _set(context, recobj, 'pycsw:TempExtent_begin', md.temporal.split('/')[0])
+    if len(md.temporal.split('/')) > 0:
+        _set(context, recobj, 'pycsw:TempExtent_end', md.temporal.split('/').pop())
     _set(context, recobj, 'pycsw:ResourceLanguage', md.language)
     _set(context, recobj, 'pycsw:Creator', md.creator)
     _set(context, recobj, 'pycsw:Publisher', md.publisher)
@@ -1685,9 +1686,10 @@ def _parse_dc(context, repos, exml):
     _set(context, recobj, 'pycsw:AccessConstraints', md.accessrights)
     _set(context, recobj, 'pycsw:OtherConstraints', md.license)
     _set(context, recobj, 'pycsw:Date', md.date)
+    _set(context, recobj, 'pycsw:Modified', md.date)
     _set(context, recobj, 'pycsw:CreationDate', md.created)
     _set(context, recobj, 'pycsw:PublicationDate', md.issued)
-    _set(context, recobj, 'pycsw:Modified', md.modified)
+    _set(context, recobj, 'pycsw:RevisionDate', md.modified)
     _set(context, recobj, 'pycsw:Format', md.format)
     _set(context, recobj, 'pycsw:Source', md.source)
 

@@ -1604,7 +1604,7 @@ class Csw3(object):
                         util.nspath_eval(i, self.parent.context.namespaces)).text = val
 
             if self.parent.kvp['elementsetname'] == 'full':  # add full elements
-                for i in ['dc:date', 'dc:creator', \
+                for i in ['dc:date', 'dct:created', 'dct:issued', 'dc:creator', \
                 'dc:publisher', 'dc:contributor', 'dc:source', \
                 'dc:language', 'dc:rights', 'dct:alternative']:
                     val = util.getqattr(recobj, queryables[i]['dbcol'])

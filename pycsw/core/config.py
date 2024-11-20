@@ -319,10 +319,14 @@ class StaticContext(object):
                                 {'dbcol': self.md_core_model['mappings']['pycsw:Publisher']},
                                 'dc:contributor':
                                 {'dbcol': self.md_core_model['mappings']['pycsw:Contributor']},
+                                'dct:created':
+                                {'dbcol': self.md_core_model['mappings']['pycsw:CreationDate']},
                                 'dct:modified':
-                                {'dbcol': self.md_core_model['mappings']['pycsw:Modified']},
+                                {'dbcol': self.md_core_model['mappings']['pycsw:RevisionDate']},
+                                'dct:available':
+                                {'dbcol': self.md_core_model['mappings']['pycsw:PublicationDate']},
                                 'dc:date':
-                                {'dbcol': self.md_core_model['mappings']['pycsw:Date']},
+                                {'dbcol': self.md_core_model['mappings']['pycsw:Modified']},
                                 'dc:type':
                                 {'dbcol': self.md_core_model['mappings']['pycsw:Type']},
                                 'dc:format':
