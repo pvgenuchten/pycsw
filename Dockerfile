@@ -36,7 +36,7 @@
 #
 # =================================================================
 
-FROM python:3.10-slim-bookworm
+FROM harbor.containers.wurnet.nl/proxy-cache/library/python:3.10-slim-bookworm
 LABEL maintainer="massimods@met.no,aheimsbakk@met.no,tommkralidis@gmail.com"
 
 # Build arguments
