@@ -31,6 +31,7 @@
 
 import json
 import logging
+from operator import itemgetter
 import os
 from urllib.parse import urlencode, quote
 
@@ -1099,7 +1100,7 @@ class API:
                     'count': fq[1]
                 })
             
-            if facet in ['keywords']:
+            if facet in ['keywords','contamination','soil_chemical_properties','soil_biological_properties','soil_services','soil_functions','ecosystem_services','soil_processes','soil_properties','soil_threats','productivity','soil_physical_properties','soil_physical_properties','soil_classification']:
                 splitkws = {}
                 for k in facets_results[facet]['buckets']:
                     if 'value' in k.keys() and k['value'] not in [None,''] and int(k['count']) > 0:
@@ -1114,6 +1115,9 @@ class API:
                         'value': k,
                         'count': v
                     })
+
+            # order by count
+            facets_results[facet]['buckets'].sort(key=itemgetter('count'), reverse=True)    
 
         return facets_results
 

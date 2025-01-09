@@ -162,7 +162,20 @@ class Repository(object):
             'time_end': self.dataset.time_end,
             'platform': self.dataset.platform,
             'instrument': self.dataset.instrument,
-            'sensortype': self.dataset.sensortype
+            'sensortype': self.dataset.sensortype,
+            # soilwise topics
+            'contamination': self.dataset.contamination,
+            'soil_chemical_properties':  self.dataset.soil_chemical_properties,
+            'soil_biological_properties':  self.dataset.soil_biological_properties,
+            'soil_services':  self.dataset.soil_services,
+            'soil_functions':  self.dataset.soil_functions,
+            'ecosystem_services':  self.dataset.ecosystem_services,
+            'soil_processes':  self.dataset.soil_processes,
+            'soil_properties':  self.dataset.soil_properties,
+            'soil_threats': self.dataset.soil_threats,
+            'productivity': self.dataset.productivity,
+            'soil_physical_properties': self.dataset.soil_physical_properties,
+            'soil_classification':  self.dataset.soil_classification
         }
 
         if self.dbtype == 'postgresql':

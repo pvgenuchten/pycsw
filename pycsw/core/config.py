@@ -183,6 +183,19 @@ class StaticContext(object):
                 'pycsw:Links': 'links',
                 # contacts: list of dicts with properties: name, organization, address, postcode, city, region, country, email, phone, fax, onlineresource, position, role
                 'pycsw:Contacts': 'contacts',
+                # soilwise topics
+                'pycsw:Contamination': 'contamination',
+                'pycsw:soil_chemical_properties':  'soil_chemical_properties',
+                'pycsw:soil_biological_properties':  'soil_biological_properties',
+                'pycsw:soil_services':  'soil_services',
+                'pycsw:soil_functions':  'soil_functions',
+                'pycsw:ecosystem_services':  'ecosystem_services',
+                'pycsw:soil_processes':  'soil_processes',
+                'pycsw:soil_properties':  'soil_properties',
+                'pycsw:soil_threats': 'soil_threats',
+                'pycsw:productivity': 'productivity',
+                'pycsw:soil_physical_properties': 'soil_physical_properties',
+                'pycsw:soil_classification':  'soil_classification'
             }
         }
 
