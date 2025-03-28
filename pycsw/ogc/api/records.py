@@ -3,7 +3,7 @@
 # Authors: Tom Kralidis <tomkralidis@gmail.com>
 #          Angelos Tzotsos <tzotsos@gmail.com>
 #
-# Copyright (c) 2024 Tom Kralidis
+# Copyright (c) 2025 Tom Kralidis
 # Copyright (c) 2021 Angelos Tzotsos
 #
 # Permission is hereby granted, free of charge, to any person
@@ -188,7 +188,7 @@ class API:
             pretty_print = str2bool(self.config['server'].get('pretty_print', False))
             content = to_json(data, pretty_print)
 
-        headers['Content-Length'] = len(content)
+        headers['Content-Length'] = len(content.encode('utf-8'))
 
         return headers, status, content
 
@@ -285,6 +285,11 @@ class API:
               'rel': 'child',
               'type': 'application/json',
               'title': 'Main collection',
+              'href': f"{self.config['server']['url']}/collections/metadata:main"
+            },{
+              'rel': 'http://www.opengis.net/def/rel/ogc/1.0/ogc-catalog',
+              'type': 'application/json',
+              'title': 'Record catalogue collection',
               'href': f"{self.config['server']['url']}/collections/metadata:main"
             }
         ]
@@ -590,7 +595,7 @@ class API:
                     ids = ','.join(f'"{x}"' for x in v.split(','))
                     query_args.append(f"identifier IN ({ids})")
                 elif k == 'collections':
-                    if isinstance(collections, str):
+                    if isinstance(v, str):
                         collections = ','.join(f'"{x}"' for x in v.split(','))
                     else:
                         collections = ','.join(f'"{x}"' for x in v)
@@ -1032,6 +1037,12 @@ class API:
                 'href': f"{self.config['server']['url']}/collections/{collection_name}",
                 'hreflang': self.config['server']['language']
             }, {
+                'rel': 'http://www.opengis.net/def/rel/ogc/1.0/ogc-catalog',
+                'type': 'application/json',
+                'title': 'Record catalog collection',
+                'href': f"{self.config['server']['url']}/collections/{collection_name}",
+                'hreflang': self.config['server']['language']
+            }, {
                 'rel': 'queryables',
                 'type': 'application/json',
                 'title': 'Collection queryables',
@@ -1118,6 +1129,8 @@ class API:
 
             # order by count
             facets_results[facet]['buckets'].sort(key=itemgetter('count'), reverse=True)    
+
+            facets_results[facet]['buckets'].sort(key=itemgetter('count'), reverse=True)
 
         return facets_results
 
@@ -1206,6 +1219,10 @@ def record2json(record, url, collection, mode='ogcapi-records'):
         if isinstance(record.otherconstraints, str) and record.otherconstraints not in [None, 'None']:
             record.otherconstraints = [record.otherconstraints]
             record_dict['properties']['license'] = ", ".join(record.otherconstraints)
+
+    if record.conditionapplyingtoaccessanduse:
+        if isinstance(record.conditionapplyingtoaccessanduse, str) and record.conditionapplyingtoaccessanduse not in [None, 'None']:
+            record_dict['properties']['rights'] = record.conditionapplyingtoaccessanduse
 
     record_dict['properties']['updated'] = record.insert_date
 
